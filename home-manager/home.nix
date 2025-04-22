@@ -20,6 +20,7 @@
 			eza
 			starship
 			git
+			gh
 		];
 	};
 
