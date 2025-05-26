@@ -21,11 +21,14 @@
 
 		catppuccin.url = "github:catppuccin/nix";
 
+		swww.url = "github:LGFae/swww";
+
 	};
 
 	outputs = { self, nixpkgs, home-manager, lanzaboote, stylix, catppuccin, ... } @ inputs:
 		let
 			system = "x86_64-linux";
+            pkgs = nixpkgs.legacyPackages.${system};
 		in {	
 
 		nixosConfigurations.NixOS-Laptop = nixpkgs.lib.nixosSystem {
@@ -39,7 +42,7 @@
 			({ pkgs, lib, ... }: {
 
 			 environment.systemPackages = [
-			 # For debugging and troubleshooting Secure Boot.
+			 inputs.swww.packages.${pkgs.system}.swww
 			 pkgs.sbctl
 			 ];
 
@@ -58,8 +61,10 @@
 		};
 		homeConfigurations.blocky = home-manager.lib.homeManagerConfiguration {
 			pkgs = nixpkgs.legacyPackages.${system};
+			extraSpecialArgs = { inherit inputs; };
 			modules = [
 			./home-manager/home.nix
+			stylix.homeManagerModules.stylix
 			catppuccin.homeModules.catppuccin
 			];
 		};

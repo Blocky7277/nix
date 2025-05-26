@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+swww img ~/nix/assets/background.png --transition-bezier=.78,.45,.28,.97 --transition-type=fade
+sleep 1.5
+swww img ~/nix/assets/frieren.jpg

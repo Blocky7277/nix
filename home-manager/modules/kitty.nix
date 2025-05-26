@@ -31,9 +31,6 @@
 	    inactive_border_color   #6c7086
 	    bell_border_color       #f9e2af
 
-	    # OS Window titlebar colors
-	    wayland_titlebar_color system
-	    macos_titlebar_color system
 
 	    # Tab bar colors
 	    active_tab_foreground   #11111b
@@ -53,8 +50,8 @@
 	    # The 16 terminal colors
 
 	    # black
-	    color0 #45475a
-	    color8 #585b70
+        # color0 #45475a
+        # color8 #585b70
 
 	    # red
 	    color1 #f38ba8
@@ -86,7 +83,7 @@
 
 	    font_family JetBrainsMono Nerd Font
 	    background_opacity .75
-	    confirm_os_window_close -1 
+	    confirm_os_window_close 0
 	   '';
 	};
 }

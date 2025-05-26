@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+network=$(nmcli -t -f name connection show --active | sed 1q 2>/dev/null)
+
+if [ "$network" = "lo" ]; then
+    echo "󰤯  Disconnected"
+else
+    echo "  $network"
+fi

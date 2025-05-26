@@ -26,6 +26,9 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  hardware.bluetooth.enable = true; 
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -95,8 +98,6 @@
     ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
   programs.bash = {
   interactiveShellInit = ''
     if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
@@ -116,18 +117,15 @@
 
 
 
-  services = {
-    asusd = {
+  services.asusd = {
       enable = true;
       enableUserService = true;
-    };
   };
 
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
   neovim 
+  lm_sensors
   home-manager
   sbctl
   libsForQt5.qt5.qtgraphicaleffects
@@ -135,8 +133,16 @@
   kdePackages.breeze
   gtk4
   gtk3
+  lshw
   ];
 
+services.upower = {
+    enable = true;
+    percentageLow = 20;
+    percentageCritical = 5;
+    percentageAction = 3;
+    criticalPowerAction = "PowerOff";
+}; 
   fonts.packages = with pkgs; [
     fira-code
     jetbrains-mono

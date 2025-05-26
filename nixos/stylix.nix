@@ -1,5 +1,5 @@
-{
-	stylix.enable = true;
+{pkgs, ...}: {
+	stylix.autoEnable = true;
 	stylix.base16Scheme = {
 		base00 = "1e1e2e"; # base
 		base01 = "181825"; # mantle
@@ -21,6 +21,14 @@
 	};
 	
 	stylix.image = ../assets/background.png; 
+
+	stylix.polarity = "dark";
+
+	stylix.cursor = {	
+		package = pkgs.kdePackages.breeze;
+		name = "breeze_cursors";
+		size=24;
+	};
 
 	catppuccin.flavor = "mocha";
 	
