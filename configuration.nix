@@ -52,9 +52,9 @@
   services.xserver.enable = true;
   services.displayManager = {
 	sddm.enable = true;
-	sddm.theme = "${import ./nixos/sddm-theme.nix {inherit pkgs;}}";
+	sddm.theme = "${import ./nixos/sddm-theme.nix {inherit pkgs;}}"; 
+    sddm.wayland.enable = true;
   };
-
 
  nix.settings = {
     substituters = ["https://hyprland.cachix.org"];
@@ -71,7 +71,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -112,8 +112,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  services.supergfxd.enable = true;
-  systemd.services.supergfxd.path = [ pkgs.pciutils ];
 
 
 

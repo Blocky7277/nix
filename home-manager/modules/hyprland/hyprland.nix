@@ -45,7 +45,7 @@
 			exec-once = [ 
 				"swww-daemon"
 				"~/nix/assets/bg"
-                "waybar & dunst"
+                "waybar &"
 			];
 # exec-once = nm-applet &
 # exec-once = waybar & hyprpaper & firefox
@@ -187,6 +187,10 @@
 					touchpad = {
 						natural_scroll = false;
 					};
+
+                kb_options = "ctrl:nocaps";
+
+                touchpad.clickfinger_behavior = 1;
 			};
 
 # https://wiki.hyprland.org/Configuring/Variables/#gestures
@@ -203,6 +207,7 @@
 
 			bind = [ 
 				"$mainMod, Q, exec, $terminal"
+				"$mainMod SHIFT, P, exec, (pgrep waybar && pkill waybar && eww open powermenu) || (eww open --toggle  powermenu && waybar &)"
 				"$mainMod, C, killactive,"
 				"$mainMod, M, exit,"
 				"$mainMod, E, exec, kitty $fileManager"
@@ -211,7 +216,7 @@
 				"$mainMod, V, togglefloating,"
 				"$mainMod, R, exec, $menu"
 				"$mainMod, P, pseudo, # dwindle"
-				"$mainMod, J, togglesplit, # dwindle"
+				"$mainMod SHIFT, J, togglesplit, # dwindle"
 				"$mainMod, h, movefocus, l"
 				"$mainMod, l, movefocus, r"
 				"$mainMod, k, movefocus, u"
@@ -253,8 +258,8 @@
 				",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
 				",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 				",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-				",XF86MonBrightnessUp, exec, brightnessctl s 5%+"
-				",XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+				",XF86MonBrightnessUp, exec, brightnessctl -d amdgpu_bl2 s 5%+"
+				",XF86MonBrightnessDown, exec, brightnessctl -d amdgpu_bl2 s 5%-"
 			];
 
 			bindl = [ 

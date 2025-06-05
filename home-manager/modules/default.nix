@@ -7,5 +7,7 @@
         ./stylix.nix
         ./fish.nix
         ./wofi.nix
+        ./dunst.nix
+        ./tmux.nix
 	];
 }

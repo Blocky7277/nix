@@ -1,7 +1,10 @@
 {
-	imports = [
-	./hyprland.nix
-	./stylix.nix
-	# ./nvidia.nix
-	];
+    imports = [
+        ./hyprland.nix
+        ./stylix.nix
+        ./nvidia.nix
+        ./swap.nix
+        ./dev.nix
+    ];
+
 }

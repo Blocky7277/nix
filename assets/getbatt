@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 bat=$(cat /sys/class/power_supply/BAT1/capacity 2>/dev/null)
-bat_num=$((bat))
 symbol="󰂎"
 
-if [ "$bat_num" -gt 80 ]; then
+if [ "$bat" -gt 80 ]; then
     symbol="󰁹"
-elif [ "$bat_num" -gt 60 ]; then
+elif [ "$bat" -gt 60 ]; then
     symbol="󰂁"
-elif [ "$bat_num" -gt 40 ]; then
+elif [ "$bat" -gt 40 ]; then
     symbol="󰁿"
-elif [ "$bat_num" -gt 20 ]; then
+elif [ "$bat" -gt 20 ]; then
     symbol="󰁼"
 fi
 echo "$symbol $bat%" 

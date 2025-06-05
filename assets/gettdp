@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+voltage=$(cat /sys/class/power_supply/BAT1/voltage_now 2>/dev/null)
+current=$(cat /sys/class/power_supply/BAT1/current_now 2>/dev/null)
+wonkywatts=$(("$current" * "$voltage"))
+conversion=$((1000000 * 1000000))
+watts=$(awk "BEGIN {print $wonkywatts / $conversion}")
+echo "$watts W"

@@ -1,4 +1,4 @@
-{pkgs, lib, ...}: {
+{pkgs, lib, config, ...}: {
     stylix.enable = true;
     stylix.autoEnable = true;
     stylix.targets = {
@@ -7,6 +7,7 @@
         hyprlock.enable = false;
         firefox.enable = false;
         yazi.enable = false;
+        dunst.enable = false;
     };
     stylix.base16Scheme = {
         base00 = "1e1e2e"; # base

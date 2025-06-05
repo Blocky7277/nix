@@ -8,18 +8,15 @@
 		homeDirectory = "/home/blocky";
 		stateVersion = "24.11";
 		packages = with pkgs; [
-            bun
+            nodejs
             playerctl
-            dunst
             eww
-            killall
-            tmux
+            killall 
             cava
             cmatrix
 			firefox-bin
 			(discord.override {
 				withOpenASAR = true;
-				# withVencord = true;
 			})
 			fastfetch
 			htop
@@ -43,7 +40,6 @@
 	};
 
   	nixpkgs.config.allowUnfree = true;
-
 
 	qt = {
 		enable = true;
