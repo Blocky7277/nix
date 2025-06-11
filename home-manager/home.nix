@@ -8,6 +8,7 @@
 		homeDirectory = "/home/blocky";
 		stateVersion = "24.11";
 		packages = with pkgs; [
+            go
             nodejs
             playerctl
             eww
