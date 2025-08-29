@@ -10,6 +10,7 @@
 		shellAliases = {
 			vim = "nvim";
 			rebuild = "sudo nixos-rebuild switch --flake ~/nix/";
+			hmrebuild = "home-manager switch --flake ~/nix/";
 			ls = "eza -a1";
 		};
     };

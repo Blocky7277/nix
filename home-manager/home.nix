@@ -9,6 +9,8 @@
 		stateVersion = "24.11";
 		packages = with pkgs; [
             go
+            youtube-music
+            tree
             nodejs
             playerctl
             eww
@@ -21,11 +23,10 @@
 			})
 			fastfetch
 			htop
-			spotify
 			kdePackages.breeze
             hyprpicker
 			hypridle
-			hyprshot
+            hyprshot
 			zoxide
 			eza
 			starship
@@ -37,26 +38,10 @@
 			gimp
 			p7zip
             gcc
+            tty-clock
+            cbonsai
 		];
 	};
 
   	nixpkgs.config.allowUnfree = true;
-
-	qt = {
-		enable = true;
-	};
-
-	gtk.enable = true;
-        catppuccin.gtk = {
-	      flavor = "mocha";
-	      accent = "red";
-	      size = "standard";
-	      tweaks = [ "normal" ];
-	};
-
-	gtk.cursorTheme.package = pkgs.kdePackages.breeze;
-	gtk.cursorTheme.name = "breeze_cursors";
-
-    gtk.iconTheme.name = "adwaita-icon-theme";
-    gtk.iconTheme.package = pkgs.adwaita-icon-theme;
 }

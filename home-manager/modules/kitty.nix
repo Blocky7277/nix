@@ -82,7 +82,7 @@
 	    color15 #a6adc8
 
 	    font_family JetBrainsMono Nerd Font
-	    background_opacity .75
+	    background_opacity .85
 	    confirm_os_window_close 0
 	   '';
 	};

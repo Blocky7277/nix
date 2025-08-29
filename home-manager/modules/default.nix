@@ -9,5 +9,6 @@
         ./wofi.nix
         ./dunst.nix
         ./tmux.nix
+        ./gtkQt.nix
 	];
 }

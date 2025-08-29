@@ -64,7 +64,7 @@
 			extraSpecialArgs = { inherit inputs; };
 			modules = [
 			./home-manager/home.nix
-			stylix.homeManagerModules.stylix
+			stylix.homeModules.stylix
 			catppuccin.homeModules.catppuccin
 			];
 		};

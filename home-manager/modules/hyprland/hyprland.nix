@@ -72,7 +72,7 @@
 			general = {
 				gaps_in = 5;
 				gaps_out = 10;
-				border_size = 2;
+				border_size = 1;
 
 # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
 				"col.active_border" = "rgb(d20f39)";
@@ -103,12 +103,12 @@
 					color = "rgba(1a1a1aee)";
 				};
 
-# https://wiki.hyprland.org/Configuring/Variables/#blur
+# https://wiki.hyprland.org/Configuring/Variabledecorations/#blur
 				blur = {
 					enabled = true;
-					size = 3;
-					passes = 1;
-					vibrancy = 0.1696;
+					size = 2;
+					passes = 2;
+					vibrancy = 0.3;
 				};
 			};
 
@@ -246,6 +246,9 @@
 				"$mainMod, mouse_down, workspace, e+1"
 				"$mainMod, mouse_up, workspace, e-1"
                 ",switch:on:Lid Switch, exec, hyprlock -q"
+                ",XF86Launch1, exec, rog-control-center"
+                ",XF86Launch3, exec, asusctl aura -n"
+                ",XF86Launch4, exec, ~/nix/assets/changeprofiles"
 				];
 
 			bindm = [ 
@@ -258,8 +261,10 @@
 				",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
 				",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 				",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-				",XF86MonBrightnessUp, exec, brightnessctl -d amdgpu_bl2 s 5%+"
-				",XF86MonBrightnessDown, exec, brightnessctl -d amdgpu_bl2 s 5%-"
+				",XF86MonBrightnessUp, exec, brightnessctl s 5%+"
+				",XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+				",XF86KbdBrightnessUp, exec, asusctl -n"
+				",XF86KbdBrightnessDown, exec, asusctl -p"
 			];
 
 			bindl = [ 
@@ -276,6 +281,7 @@
 				"suppressevent maximize, class:.*"
 				"nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
 			];
+            layerrule = "blur, waybar";
 		};
 	};
     home.sessionVariables.NIXOS_OZONE_WL = "1";

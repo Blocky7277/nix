@@ -6,10 +6,10 @@
                 "layer" = "top";
                 "position" = "top";
                 "height" = 36;
-                "margin-left" = 9;
-                "margin-right" = 9;
-                "margin-top" = 4;
-                "margin-bottom" = -4;
+                "margin-left" = 0;
+                "margin-right" = 0;
+                "margin-top" = 0;
+                "margin-bottom" = 0;
                 "spacing" = 1;
                 "reload_style_on_change" = true;
 
@@ -126,7 +126,7 @@
             @define-color highlight alpha(@color15, 1.0);
             @define-color alert alpha(@color11, 1.0);
             @define-color disabled #A5A5A5;
-            @define-color bg #1e1e2e;
+            @define-color bg alpha(#1e1e2e, .75);
             @define-color accent #f38ba8;
             @define-color fg #d20f39;
 
@@ -141,8 +141,8 @@
               background: @bg;
               transition-property: background-color;
               transition-duration: 0.5s;
-              border: 0.15rem solid @bordercolor;
-              border-radius: 0.3rem;
+              border: none;
+              border-radius: 0 0 .7rem .7rem;
             }
 
             tooltip {

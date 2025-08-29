@@ -30,11 +30,11 @@ set -ag status-right "#{E:@catppuccin_status_session}"
 
 set -g base-index 1
 
-set-option -g status-style bg=default
-set -g @catppuccin_status_background "default"
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
+set-option -g status-style bg=default
+set -g @catppuccin_status_background "default"
         '';
     };
 }

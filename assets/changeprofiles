@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+asusctl profile -n > /dev/null 2>&1
+
+profile=$(asusctl profile -p)
+
+notify-send "Power Profile Changed" ${profile:42}
