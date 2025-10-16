@@ -9,6 +9,8 @@
 		stateVersion = "24.11";
 		packages = with pkgs; [
             go
+            python313
+            python313Packages.numpy
             youtube-music
             tree
             nodejs
@@ -20,6 +22,7 @@
 			firefox-bin
 			(discord.override {
 				withOpenASAR = true;
+                withVencord = true;
 			})
 			fastfetch
 			htop

@@ -96,19 +96,19 @@
 				active_opacity = 1.0;
 				inactive_opacity = 1.0;
 
-				shadow = {
-					enabled = true;
-					range = 4;
-					render_power = 3;
-					color = "rgba(1a1a1aee)";
-				};
+				# shadow = {
+				# 	enabled = true;
+				# 	range = 4;
+				# 	render_power = 3;
+				# 	color = "rgba(1a1a1aee)";
+				# };
 
 # https://wiki.hyprland.org/Configuring/Variabledecorations/#blur
 				blur = {
 					enabled = true;
 					size = 2;
-					passes = 2;
-					vibrancy = 0.3;
+					passes = 1;
+					vibrancy = 0.2;
 				};
 			};
 
@@ -193,11 +193,6 @@
                 touchpad.clickfinger_behavior = 1;
 			};
 
-# https://wiki.hyprland.org/Configuring/Variables/#gestures
-			gestures = {
-				workspace_swipe = false;
-			};
-
 
 ###################
 ### KEYBINDINGS ###
@@ -241,14 +236,15 @@
 				"$mainMod SHIFT, 8, movetoworkspace, 8"
 				"$mainMod SHIFT, 9, movetoworkspace, 9"
 				"$mainMod SHIFT, 0, movetoworkspace, 10"
-				"$mainMod, S, togglespecialworkspace, magic"
-				"$mainMod SHIFT, S, movetoworkspace, special:magic"
+				"$mainMod, -, togglespecialworkspace, magic"
+				"$mainMod SHIFT, -, movetoworkspace, special:magic"
 				"$mainMod, mouse_down, workspace, e+1"
 				"$mainMod, mouse_up, workspace, e-1"
                 ",switch:on:Lid Switch, exec, hyprlock -q"
                 ",XF86Launch1, exec, rog-control-center"
                 ",XF86Launch3, exec, asusctl aura -n"
                 ",XF86Launch4, exec, ~/nix/assets/changeprofiles"
+				"$mainMod SHIFT, S, exec, hyprshot -m region -o ~/Pictures/Screenshots"
 				];
 
 			bindm = [ 
