@@ -12,9 +12,11 @@
 
     powerManagement.enable = true;
 
-    services.logind.lidSwitch = "suspend";
-    services.logind.powerKey = "hibernate";
-    services.logind.powerKeyLongPress = "poweroff";
+    services.logind.settings.Login = {
+        HandleLidSwitch = "suspend";
+        HandlePowerKey = "hibernate";
+        HandlePowerKeyLongPress = "poweroff";
+    };
 
     environment.etc."systemd/system-sleep/99-posthiber" = {
         source = ../assets/posthiber;

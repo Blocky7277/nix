@@ -10,9 +10,9 @@
 
     		lanzaboote = {
 			url = "github:nix-community/lanzaboote/v0.4.2";
-
 			# Optional but recommended to limit the size of your system closure.
 			inputs.nixpkgs.follows = "nixpkgs";
+            inputs.rust-overlay.follows = "rust-overlay";
 		};
 
 		hyprland.url = "github:hyprwm/Hyprland";
@@ -22,6 +22,11 @@
 		catppuccin.url = "github:catppuccin/nix";
 
 		swww.url = "github:LGFae/swww";
+
+        rust-overlay = {
+            url = "github:oxalica/rust-overlay";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
 	};
 

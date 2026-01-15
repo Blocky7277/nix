@@ -9,9 +9,9 @@
 		stateVersion = "24.11";
 		packages = with pkgs; [
             go
+            pavucontrol
             python313
-            python313Packages.numpy
-            youtube-music
+            pear-desktop
             tree
             nodejs
             playerctl

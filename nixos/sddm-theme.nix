@@ -1,12 +1,11 @@
 { pkgs }:
-
 let
 	image = ../assets/lock.jpg;
 	theme = ../assets/theme.conf;
 
 in
 pkgs.stdenv.mkDerivation {
-  name = "sddm-theme";
+  name = "sugar-dark";
   src = pkgs.fetchFromGitHub {
     owner = "TiagoDamascena";
     repo = "sddm-sugar-catppuccin";

@@ -18,7 +18,10 @@
 ################
 
 # See https://wiki.hyprland.org/Configuring/Monitors/
-			monitor = ",preferred,auto,auto";
+			monitor = [
+                "eDP-1,preferred, 0x0, auto"
+                "HDMI-A-1, 1920x1080, 0x-1080, 1"
+            ];
 
 
 ###################
@@ -236,8 +239,8 @@
 				"$mainMod SHIFT, 8, movetoworkspace, 8"
 				"$mainMod SHIFT, 9, movetoworkspace, 9"
 				"$mainMod SHIFT, 0, movetoworkspace, 10"
-				"$mainMod, -, togglespecialworkspace, magic"
-				"$mainMod SHIFT, -, movetoworkspace, special:magic"
+				"$mainMod, G, togglespecialworkspace, magic"
+				"$mainMod SHIFT, G, movetoworkspace, special:magic"
 				"$mainMod, mouse_down, workspace, e+1"
 				"$mainMod, mouse_up, workspace, e-1"
                 ",switch:on:Lid Switch, exec, hyprlock -q"
@@ -274,10 +277,8 @@
 ##############################
 
 			windowrule = [ 
-				"suppressevent maximize, class:.*"
-				"nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
 			];
-            layerrule = "blur, waybar";
+            layerrule = "blur on, match:namespace waybar";
 		};
 	};
     home.sessionVariables.NIXOS_OZONE_WL = "1";
