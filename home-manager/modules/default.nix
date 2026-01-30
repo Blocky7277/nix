@@ -10,7 +10,7 @@
         ./dunst.nix
         ./tmux.nix
         ./gtkQt.nix
-        ./mpd.nix
-        ./rmpc.nix
+        # ./mpd.nix
+        # ./rmpc.nix
 	];
 }
