@@ -9,6 +9,7 @@
 		stateVersion = "24.11";
 		packages = with pkgs; [
             go
+            libnotify
             pavucontrol
             python313
             pear-desktop
@@ -25,7 +26,7 @@
                 withVencord = true;
 			})
 			fastfetch
-			htop
+            btop
 			kdePackages.breeze
             hyprpicker
 			hypridle
@@ -38,11 +39,11 @@
 			brightnessctl
 			fzf
 			ripgrep
-			gimp
 			p7zip
             gcc
             tty-clock
-            cbonsai
+            rmpc
+            pokeget-rs
 		];
 	};
 

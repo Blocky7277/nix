@@ -10,6 +10,7 @@ set -g @catppuccin_window_status_style "rounded"
 
 unbind r
 bind r source-file ~/.config/tmux/tmux.conf
+bind q killp
 
 set -g prefix C-s
 

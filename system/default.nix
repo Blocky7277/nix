@@ -4,7 +4,7 @@
         ./stylix.nix
         ./nvidia.nix
         ./swap.nix
-        ./dev.nix
+        # ./dev.nix
     ];
 
 }

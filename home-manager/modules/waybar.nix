@@ -23,6 +23,7 @@
                 modules-center = [ "hyprland/window" ];
 
                 modules-right = [
+                    "custom/tlp"
                     "battery"
                     "bluetooth"
                     "network"
@@ -108,6 +109,17 @@
                     on-click = "$HOME/scripts/rofi-power";
                     tooltip-format = "Power Menu";
                 };
+                "custom/tlp" = {
+                    format = "{text}";
+                    return-type = "string";
+                    exec = "tlp-stat -m | awk -F'/' '{print $NF}'";
+                    exec-on-event = true;
+                    interval = 5;
+                    tooltip = true;
+                    tool-tip-format = "Change Profile";
+                    on-click = "~/nix/assets/changeprofiles";
+                    # "on-click-right": "~/.config/waybar/scripts/tlp-ctl.sh set auto";
+                };
                 "bluetooth" = {
                     format-on = "󰂯";
                     format-off = "󰂲";
@@ -142,7 +154,8 @@
               transition-property: background-color;
               transition-duration: 0.5s;
               border: none;
-              border-radius: 0 0 .7rem .7rem;
+              border-radius: 0;
+              /* border-radius: 0 0 .7rem .7rem; */
             }
 
             tooltip {
@@ -236,6 +249,7 @@
             #custom-notification,
             #bluetooth,
             #custom-power,
+            #custom-tlp,
             #custom-separator,
             #idle_inhibitor,
             #window,

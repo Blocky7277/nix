@@ -1,28 +1,40 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
+# TODO: Restructure file tree
 
 {inputs, config, pkgs, lib, ... }:
 
-{
+let
+sddm-themes = pkgs.callPackage ./system/sddm-themes.nix {};
+grub-themes = pkgs.callPackage ./system/grub-themes.nix {};
+in {
     imports =
         [ # Include the results of the hardware scan.
             ./hardware-configuration.nix
-            ./nixos
+            ./system
         ];
 
     # Bootloader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+    # boot.loader.systemd-boot.enable = false;
+    # boot.loader = {
+    #     grub = {
+    #         enable = true;
+    #         efiSupport = true;
+    #         device = "nodev";
+    #         # theme = grub-themes.grub-cyber;
+    #         useOSProber = true;
+    #         gfxmodeEfi = "2880x1800";
+    #     };
+    #     efi = {
+    #         canTouchEfiVariables = true;
+    #     };
+    # };
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
 
     networking.hostName = "NixOS-Laptop"; # Define your hostname.
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-    # Configure network proxy if necessary
-    # networking.proxy.default = "http://user:password@proxy:port/";
-    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
     # Enable networking
     networking.networkmanager.enable = true;
@@ -52,7 +64,17 @@
     services.xserver.enable = true;
     services.displayManager.sddm = {
         enable = true;
-        theme = "${import ./nixos/sddm-theme.nix {inherit pkgs;}}"; 
+        extraPackages = with pkgs; [
+            sddm-themes.sddm-cyber
+        ];
+        theme = "sddm-astronaut-theme";
+        settings = {
+            Theme = {
+                Current = "sddm-astronaut-theme";
+                CursorTheme = "breeze_cursors";
+                CursorSize = 48;
+            };
+        };
         wayland.enable = true;
     };
 
@@ -78,16 +100,8 @@
         alsa.enable = true;
         alsa.support32Bit = true;
         pulse.enable = true;
-        # If you want to use JACK applications, uncomment this
-        #jack.enable = true;
-
-        # use the example session manager (no others are packaged yet so this is enabled by default,
-        # no need to redefine it in your config for now)
-        #media-session.enable = true;
     };
 
-    # Enable touchpad support (enabled default in most desktopManager).
-    # services.xserver.libinput.enable = true;
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.blocky = {
@@ -112,26 +126,22 @@
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
-
-
-
-    services.asusd = {
-        enable = true;
-        enableUserService = true;
-    };
-
-
     environment.systemPackages = with pkgs; [
         neovim 
+        pkgs.sbctl
+        inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
         lm_sensors
         home-manager
         sbctl
         libsForQt5.qt5.qtgraphicaleffects
+        kdePackages.qtmultimedia
         libsForQt5.qt5.qtquickcontrols2
         kdePackages.breeze
         gtk4
         gtk3
         lshw
+        sddm-themes.sddm-cyber
+        grub-themes.grub-cyber
     ];
 
     services.upower = {
@@ -141,6 +151,27 @@
         percentageAction = 3;
         criticalPowerAction = "PowerOff";
     }; 
+
+    services.tlp = {
+        enable = true;
+        pd.enable = true;
+        settings = {
+            CPU_SCALING_GOVERNOR_ON_AC = "performance";
+            CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+            CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+            CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+            CPU_MIN_PERF_ON_AC = 0;
+            CPU_MAX_PERF_ON_AC = 100;
+            CPU_MIN_PERF_ON_BAT = 0;
+            CPU_MAX_PERF_ON_BAT = 40;
+            STOP_CHARGE_THRESH_BAT1 = 80;
+
+        };
+    };
+
+
     fonts.packages = with pkgs; [
         fira-code
         jetbrains-mono
@@ -148,6 +179,11 @@
         d2coding
         font-awesome
     ];
+
+    boot.lanzaboote = {
+        enable = true;
+        pkiBundle = "/var/lib/sbctl";
+    };
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.

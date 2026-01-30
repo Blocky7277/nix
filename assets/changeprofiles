@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
-asusctl profile -n > /dev/null 2>&1
+profile=$(tlp-stat -m)
+echo $profile
+if [[ "$profile" == "performance/AC" ]]; then
+    tlpctl power-saver > /dev/null
+    new_profile="Power Saver"
+elif [[ "$profile" == "power-saver/SAV" ]]; then
+    tlpctl balanced > /dev/null
+    new_profile="Balanced"
+else
+    tlpctl performance > /dev/null
+    new_profile="Performance"
+fi
 
-profile=$(asusctl profile -p)
-
-notify-send "Power Profile Changed" ${profile:42}
+notify-send "Power Profile Changed" "$new_profile"

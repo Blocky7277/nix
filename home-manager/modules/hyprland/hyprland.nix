@@ -46,7 +46,7 @@
 # Or execute your favorite apps at launch like this:
 
 			exec-once = [ 
-				"swww-daemon"
+				"awww-daemon"
 				"~/nix/assets/bg"
                 "waybar &"
 			];
@@ -75,7 +75,8 @@
 			general = {
 				gaps_in = 5;
 				gaps_out = 10;
-				border_size = 1;
+				border_size = 2;
+				# border_size = 1;
 
 # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
 				"col.active_border" = "rgb(d20f39)";
@@ -92,7 +93,8 @@
 
 # https://wiki.hyprland.org/Configuring/Variables/#decoration
 			decoration = {
-				rounding = 10;
+				rounding =0;
+				# rounding = 10;
 				rounding_power = 2;
 
 # Change transparency of focused and unfocused windows
@@ -166,7 +168,7 @@
 
 # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
 			master = {
-				new_status = "master";
+				new_status = "slave";
 			};
 
 			misc = {
@@ -195,6 +197,11 @@
 
                 touchpad.clickfinger_behavior = 1;
 			};
+            device = {
+                name = "logitech-usb-receiver";
+                accel_profile = "flat";
+				sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+            };
 
 
 ###################
@@ -241,13 +248,12 @@
 				"$mainMod SHIFT, 0, movetoworkspace, 10"
 				"$mainMod, G, togglespecialworkspace, magic"
 				"$mainMod SHIFT, G, movetoworkspace, special:magic"
-				"$mainMod, mouse_down, workspace, e+1"
-				"$mainMod, mouse_up, workspace, e-1"
+				"$mainMod, mouse_down, workspace, e-1"
+				"$mainMod, mouse_up, workspace, e+1"
                 ",switch:on:Lid Switch, exec, hyprlock -q"
-                ",XF86Launch1, exec, rog-control-center"
-                ",XF86Launch3, exec, asusctl aura -n"
+                ",XF86Launch1, exec, btop"
                 ",XF86Launch4, exec, ~/nix/assets/changeprofiles"
-				"$mainMod SHIFT, S, exec, hyprshot -m region -o ~/Pictures/Screenshots"
+				"$mainMod SHIFT, S, exec, hyprshot -m region -o ~/pictures/screenshots"
 				];
 
 			bindm = [ 
