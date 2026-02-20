@@ -5,6 +5,7 @@
             export EDITOR=nvim
 			starship init fish | source
 			zoxide init --cmd cd fish | source
+            direnv hook fish | source
             
             function fish_greeting
                 set pkmn "gengar" "greninja" "scolipede" "decidueye" "wooper" "eevee" "snorlax" "minun" "necrozma" "munchlax" "rowlet"\
@@ -30,6 +31,7 @@
 			hmrebuild = "home-manager switch --flake ~/nix/";
 			ls = "eza -a1 --color=always --group-directories-first --icons";
             p = "~/nix/assets/getdrawnpwr";
+            unzip = "7z +x";
 		};
     };
 }

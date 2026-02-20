@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+case "$1" in
+    post)
+        if [ "$2" = "hibernate" ]; then
+            sleep 1
+            lvl=$(brightnessctl --device='asus::kbd_backlight' g)
+            brightnessctl --device='asus::kbd_backlight' s $lvl
+        fi;;
+esac

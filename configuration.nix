@@ -16,19 +16,23 @@ in {
         ];
 
     # Bootloader.
-    # boot.loader.systemd-boot.enable = false;
-    # boot.loader = {
-    #     grub = {
-    #         enable = true;
-    #         efiSupport = true;
-    #         device = "nodev";
-    #         # theme = grub-themes.grub-cyber;
-    #         useOSProber = true;
-    #         gfxmodeEfi = "2880x1800";
-    #     };
-    #     efi = {
-    #         canTouchEfiVariables = true;
-    #     };
+    # boot.loader.systemd-boot.enable = true;
+    boot.loader = {
+        grub = {
+            enable = true;
+            efiSupport = true;
+            device = "nodev";
+            # theme = grub-themes.grub-cyber;
+            useOSProber = true;
+            gfxmodeEfi = "2880x1800";
+        };
+        efi = {
+            canTouchEfiVariables = true;
+        };
+    };
+    # boot.lanzaboote = {
+    #     enable = true;
+    #     pkiBundle = "/var/lib/sbctl";
     # };
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -122,13 +126,14 @@ in {
         '';
     };
 
+    programs.direnv.enable = true;
+    programs.direnv.nix-direnv.enable = true;
 
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
     environment.systemPackages = with pkgs; [
         neovim 
-        pkgs.sbctl
         inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
         lm_sensors
         home-manager
@@ -180,10 +185,6 @@ in {
         font-awesome
     ];
 
-    boot.lanzaboote = {
-        enable = true;
-        pkiBundle = "/var/lib/sbctl";
-    };
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.

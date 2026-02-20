@@ -6,7 +6,7 @@
         ./yazi.nix
         ./stylix.nix
         ./fish.nix
-        ./wofi.nix
+        ./rofi.nix
         ./dunst.nix
         ./tmux.nix
         ./gtkQt.nix

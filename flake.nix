@@ -8,12 +8,17 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        lanzaboote = {
-            url = "github:nix-community/lanzaboote/v0.4.2";
-            # Optional but recommended to limit the size of your system closure.
-            inputs.nixpkgs.follows = "nixpkgs";
-            inputs.rust-overlay.follows = "rust-overlay";
-        };
+        # lanzaboote = {
+        #     url = "github:nix-community/lanzaboote/v0.4.2";
+        #     # Optional but recommended to limit the size of your system closure.
+        #     inputs.nixpkgs.follows = "nixpkgs";
+        #     inputs.rust-overlay.follows = "rust-overlay";
+        # };
+        #
+        # rust-overlay = {
+        #     url = "github:oxalica/rust-overlay";
+        #     inputs.nixpkgs.follows = "nixpkgs";
+        # };
 
         hyprland.url = "github:hyprwm/Hyprland";
 
@@ -22,16 +27,9 @@
         catppuccin.url = "github:catppuccin/nix";
 
         awww.url = "git+https://codeberg.org/LGFae/awww";
-
-
-        rust-overlay = {
-            url = "github:oxalica/rust-overlay";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
     };
 
-    outputs = { self, nixpkgs, home-manager, lanzaboote, stylix, catppuccin, ... } @ inputs:
+    outputs = { self, nixpkgs, home-manager, stylix, catppuccin, ... } @ inputs:
     let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
@@ -43,7 +41,7 @@
                 ./configuration.nix
                 catppuccin.nixosModules.catppuccin
                 stylix.nixosModules.stylix
-                lanzaboote.nixosModules.lanzaboote
+                # inputs.lanzaboote.nixosModules.lanzaboote
             ];
         };
         homeConfigurations.blocky = home-manager.lib.homeManagerConfiguration {

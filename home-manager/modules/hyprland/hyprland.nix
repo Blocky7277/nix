@@ -20,7 +20,7 @@
 # See https://wiki.hyprland.org/Configuring/Monitors/
 			monitor = [
                 "eDP-1,preferred, 0x0, auto"
-                "HDMI-A-1, 1920x1080, 0x-1080, 1"
+                "HDMI-A-1, preferred, 0x-1080, 1"
             ];
 
 
@@ -35,7 +35,7 @@
 			"$browser" = "firefox";
 			"$terminal" = "kitty";
 			"$fileManager" = "yazi";
-			"$menu" = "pgrep wofi && pkill wofi || wofi";
+			"$menu" = "rofi -show drun || pkill rofi";
 
 
 #################
@@ -112,8 +112,8 @@
 				blur = {
 					enabled = true;
 					size = 2;
-					passes = 1;
-					vibrancy = 0.2;
+					passes = 2;
+					vibrancy = 0.4;
 				};
 			};
 
@@ -150,16 +150,6 @@
 					"workspacesOut, 1, 1.94, easeOutQuint, slide"
 				];
 			};
-
-# Ref https://wiki.hyprland.org/Configuring/Workspace-Rules/
-# "Smart gaps" / "No gaps when only"
-# uncomment all if you wish to use that.
-# workspace = w[tv1], gapsout:0, gapsin:0
-# workspace = f[1], gapsout:0, gapsin:0
-# windowrule = bordersize 0, floating:0, onworkspace:w[tv1]
-# windowrule = rounding 0, floating:0, onworkspace:w[tv1]
-# windowrule = bordersize 0, floating:0, onworkspace:f[1]
-# windowrule = rounding 0, floating:0, onworkspace:f[1]
 
 # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
 			dwindle = {
@@ -251,7 +241,7 @@
 				"$mainMod, mouse_down, workspace, e-1"
 				"$mainMod, mouse_up, workspace, e+1"
                 ",switch:on:Lid Switch, exec, hyprlock -q"
-                ",XF86Launch1, exec, btop"
+                ",XF86Launch1, exec, kitty btop"
                 ",XF86Launch4, exec, ~/nix/assets/changeprofiles"
 				"$mainMod SHIFT, S, exec, hyprshot -m region -o ~/pictures/screenshots"
 				];
@@ -268,8 +258,8 @@
 				",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 				",XF86MonBrightnessUp, exec, brightnessctl s 5%+"
 				",XF86MonBrightnessDown, exec, brightnessctl s 5%-"
-				",XF86KbdBrightnessUp, exec, asusctl -n"
-				",XF86KbdBrightnessDown, exec, asusctl -p"
+				",XF86KbdBrightnessUp, exec, brightnessctl --device='asus::kbd_backlight' s 1+"
+				",XF86KbdBrightnessDown, exec, brightnessctl --device='asus::kbd_backlight' s 1- "
 			];
 
 			bindl = [ 
@@ -283,8 +273,14 @@
 ##############################
 
 			windowrule = [ 
+                "match:class rofi, opacity .8"
+                "match:class rofi, no_blur off"
+
 			];
-            layerrule = "blur on, match:namespace waybar";
+            layerrule = [
+                "blur on, match:namespace waybar"
+                "blur on, match:namespace rofi"
+            ];
 		};
 	};
     home.sessionVariables.NIXOS_OZONE_WL = "1";
