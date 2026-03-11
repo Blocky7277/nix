@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+playerctl --follow metadata --format '{{playerName}}|{{title}}|{{mpris:artUrl}}' | \
+while IFS='|' read -r player title url; do
+    [ "$player" != "spotify" ] && continue
+    cached="/tmp/$(echo "$url" | md5sum | cut -d' ' -f1).png"
+    [ -f "$cached" ] || curl -s "$url" -o "$cached"
+    dunstify "Song Changed" "$(~/nix/assets/nowplaying)" -i "$cached"
+done

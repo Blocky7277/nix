@@ -5,7 +5,7 @@
         ./nvidia.nix
         ./swap.nix
         ./tailscale.nix
-        # ./dev.nix
+        # ./steam.nix
     ];
 
 }

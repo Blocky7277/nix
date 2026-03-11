@@ -10,7 +10,10 @@
         ./dunst.nix
         ./tmux.nix
         ./gtkQt.nix
-        # ./mpd.nix
-        # ./rmpc.nix
+        ./symlinks.nix
+        ./libreoffice.nix
+        ./spotify.nix
+        ./nvim.nix
+        ./firefox.nix
 	];
 }

@@ -139,8 +139,8 @@
             @define-color alert alpha(@color11, 1.0);
             @define-color disabled #A5A5A5;
             @define-color bg alpha(#1e1e2e, .75);
-            @define-color accent #f38ba8;
-            @define-color fg #d20f39;
+            @define-color accent #${config.lib.stylix.colors.base08};
+            @define-color fg #${config.lib.stylix.colors.base0F};
 
             * {
               min-height: 0;

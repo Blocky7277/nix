@@ -11,7 +11,6 @@
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "usbhid" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/0b091cf5-54b0-483e-8c72-39e12e3c61fd";
@@ -23,6 +22,13 @@
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
+
+    boot.kernel.sysctl."fs.binfmt_misc.status" = 1;
+    fileSystems."/mnt/c" =
+        { device = "/dev/disk/by-partuuid/6fa9bb0b-445d-4abf-9206-90c5b3fdb8dc";
+          fsType = "ntfs-3g";
+          options = [ "rw" "uid=1000" "gid=100" "umask=000" "nofail" ];
+        };
 
   swapDevices = [ ];
 

@@ -24,7 +24,7 @@ in {
             device = "nodev";
             # theme = grub-themes.grub-cyber;
             useOSProber = true;
-            gfxmodeEfi = "2880x1800";
+            # gfxmodeEfi = "2880x1800";
         };
         efi = {
             canTouchEfiVariables = true;
@@ -111,7 +111,7 @@ in {
     users.users.blocky = {
         isNormalUser = true;
         description = "blocky";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "dialout" ];
         packages = with pkgs; [
         ];
     };
@@ -146,7 +146,8 @@ in {
         gtk3
         lshw
         sddm-themes.sddm-cyber
-        grub-themes.grub-cyber
+        ntfs3g
+        ncdu
     ];
 
     services.upower = {
@@ -170,7 +171,7 @@ in {
             CPU_MIN_PERF_ON_AC = 0;
             CPU_MAX_PERF_ON_AC = 100;
             CPU_MIN_PERF_ON_BAT = 0;
-            CPU_MAX_PERF_ON_BAT = 40;
+            CPU_MAX_PERF_ON_BAT = 30;
             STOP_CHARGE_THRESH_BAT1 = 80;
 
         };
@@ -185,32 +186,12 @@ in {
         font-awesome
     ];
 
+    fonts.fontconfig = {
+        defaultFonts = {
+            monospace = [ "JetBrainsMonoNL Nerd Font" ];
+        };
+    };
 
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    # programs.mtr.enable = true;
-    # programs.gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    # };
-
-    # List services that you want to enable:
-
-    # Enable the OpenSSH daemon.
-    # services.openssh.enable = true;
-
-    # Open ports in the firewall.
-    # networking.firewall.allowedTCPPorts = [ ... ];
-    # networking.firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # networking.firewall.enable = false;
-
-    # This value determines the NixOS release from which the default
-    # settings for stateful data, like file locations and database versions
-    # on your system were taken. It‘s perfectly fine and recommended to leave
-    # this value at the release version of the first install of this system.
-    # Before changing this value read the documentation for this option
-    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = "24.11"; # Did you read the comment?
+    system.stateVersion = "24.11";
 
 }

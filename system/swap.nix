@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
     swapDevices = [ { device = "/var/lib/swapfile";
             size = 20 * 1024;
         }
@@ -17,16 +17,9 @@
     boot.kernelParams = ["resume_offset=26335232"];
 
     # Define time delay for hibernation
-    systemd.sleep.extraConfig = ''
-    HibernateDelaySec=20m
-    '';
+    systemd.sleep.settings.Sleep = {
 
-    # environment.etc."systemd/system-sleep/99-posthiber" = {
-    #     source = ../assets/posthiber;
-    #     mode = "0755";
-    # };
-    boot.initrd.postResumeCommands = ''
-        lvl=$(brightnessctl --device='asus::kbd_backlight' g)
-        brightnessctl --device='asus::kbd_backlight' s $lvl
-    '';
+        HibernateDelaySec = "30m";
+    };
+
 }

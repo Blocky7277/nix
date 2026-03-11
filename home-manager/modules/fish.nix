@@ -23,15 +23,29 @@
                 clear
                 fish_greeting
             end
+
+            function upg
+                sudo nix flake update --flake ~/nix
+                sudo nixos-rebuild switch --flake ~/nix/
+                home-manager switch --flake ~/nix/
+            end
+
+            function garbage
+                sudo ls > /dev/null
+                home-manager expire-generations -d
+                nix-collect-garbage -d
+                sudo nix-collect-garbage -d
+            end
 		'';
 		shellAliases = {
 			vim = "nvim";
-            upg = "sudo nix flake update --flake ~/nix";
+            flake = "sudo nix flake update --flake ~/nix";
 			rebuild = "sudo nixos-rebuild switch --flake ~/nix/";
 			hmrebuild = "home-manager switch --flake ~/nix/";
 			ls = "eza -a1 --color=always --group-directories-first --icons";
             p = "~/nix/assets/getdrawnpwr";
             unzip = "7z +x";
+            ssh = "kitty +kitten ssh";
 		};
     };
 }

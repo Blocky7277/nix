@@ -1,11 +1,11 @@
-{
+{config, ...}: {
     services.dunst = {
         enable = true;
         settings = {
             global = {
-                frame_color = "#d20f39";
+                frame_color = "#${config.lib.stylix.colors.base0F}";
                 separator_color="frame";
-                highlight = "#f38ba8";
+                highlight = "#${config.lib.stylix.colors.base08}";
                 corner_radius = 8;
             };
 

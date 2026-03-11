@@ -49,6 +49,7 @@
 				"awww-daemon"
 				"~/nix/assets/bg"
                 "waybar &"
+                "~/nix/assets/playernoti"
 			];
 # exec-once = nm-applet &
 # exec-once = waybar & hyprpaper & firefox
@@ -63,6 +64,7 @@
 			env = [ 
 				"XCURSOR_SIZE,24"
 				"HYPRCURSOR_SIZE,24"
+                "NIXOS_OZONE_WL,1"
 			];
 
 #####################
@@ -73,14 +75,14 @@
 
 # https://wiki.hyprland.org/Configuring/Variables/#general
 			general = {
-				gaps_in = 5;
-				gaps_out = 10;
+				gaps_in = 8;
+				gaps_out = 16;
+				# border_size = 0;
 				border_size = 2;
-				# border_size = 1;
 
 # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
-				"col.active_border" = "rgb(d20f39)";
-				"col.inactive_border" = "rgba(${config.lib.stylix.colors.base08}6A)";
+				"col.active_border" = "rgb(${config.lib.stylix.colors.base0F})";
+				"col.inactive_border" = "rgba(${config.lib.stylix.colors.base08}A1)";
 
 # Set to true enable resizing windows by clicking and dragging on borders and gaps
 				resize_on_border = false;
@@ -93,19 +95,19 @@
 
 # https://wiki.hyprland.org/Configuring/Variables/#decoration
 			decoration = {
-				rounding =0;
-				# rounding = 10;
+				rounding = 4;
 				rounding_power = 2;
 
 # Change transparency of focused and unfocused windows
 				active_opacity = 1.0;
-				inactive_opacity = 1.0;
+				inactive_opacity = .9;
 
 				# shadow = {
 				# 	enabled = true;
 				# 	range = 4;
-				# 	render_power = 3;
-				# 	color = "rgba(1a1a1aee)";
+				# 	render_power = 0;
+				# 	color = "rgba(${config.lib.stylix.colors.base00}CD)";
+				#                 sharp = true;
 				# };
 
 # https://wiki.hyprland.org/Configuring/Variabledecorations/#blur
@@ -113,7 +115,8 @@
 					enabled = true;
 					size = 2;
 					passes = 2;
-					vibrancy = 0.4;
+					vibrancy = .4;
+                    vibrancy_darkness = .2;
 				};
 			};
 
@@ -134,8 +137,8 @@
 				animation = [ 
 					"global, 1, 10, default"
 					"border, 1, 5.39, easeOutQuint"
-					"windows, 1, 4.79, easeOutQuint"
-					"windowsIn, 1, 4.1, easeOutQuint, popin 1%"
+					"windows, 1, 3.4, easeOutQuint"
+					"windowsIn, 1, 3.6, easeOutQuint, popin 1%"
 					"windowsOut, 1, 1.49, linear, popin 87%"
 					"fadeIn, 1, 1.73, almostLinear"
 					"fadeOut, 1, 1.46, almostLinear"
@@ -147,7 +150,7 @@
 					"fadeLayersOut, 1, 1.39, almostLinear"
 					"workspaces, 1, 1.94, easeOutQuint, slide"
 					"workspacesIn, 1, 1.21, easeOutQuint, slide"
-					"workspacesOut, 1, 1.94, easeOutQuint, slide"
+					"workspacesOut, 1, 1, easeOutQuint, slide"
 				];
 			};
 
@@ -157,10 +160,6 @@
 				preserve_split = true; 			};
 
 # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-			master = {
-				new_status = "slave";
-			};
-
 			misc = {
 				force_default_wallpaper = 0;
 				disable_hyprland_logo = true;
@@ -211,7 +210,7 @@
 				"$mainMod, V, togglefloating,"
 				"$mainMod, R, exec, $menu"
 				"$mainMod, P, pseudo, # dwindle"
-				"$mainMod SHIFT, J, togglesplit, # dwindle"
+				"$mainMod SHIFT, J, layoutmsg, togglesplit"
 				"$mainMod, h, movefocus, l"
 				"$mainMod, l, movefocus, r"
 				"$mainMod, k, movefocus, u"
@@ -274,12 +273,14 @@
 
 			windowrule = [ 
                 "match:class rofi, opacity .8"
+                "match:class discord, opacity .9"
                 "match:class rofi, no_blur off"
 
 			];
             layerrule = [
                 "blur on, match:namespace waybar"
                 "blur on, match:namespace rofi"
+                "blur on, match:namespace discord"
             ];
 		};
 	};

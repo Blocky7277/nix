@@ -27,6 +27,8 @@
         catppuccin.url = "github:catppuccin/nix";
 
         awww.url = "git+https://codeberg.org/LGFae/awww";
+
+        spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     };
 
     outputs = { self, nixpkgs, home-manager, stylix, catppuccin, ... } @ inputs:
@@ -49,8 +51,9 @@
             extraSpecialArgs = { inherit inputs; };
             modules = [
                 ./home-manager/home.nix
-                stylix.homeModules.stylix
                 catppuccin.homeModules.catppuccin
+                inputs.spicetify-nix.homeManagerModules.default
+                stylix.homeModules.stylix
             ];
         };
     };
