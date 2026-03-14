@@ -23,12 +23,6 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-    boot.kernel.sysctl."fs.binfmt_misc.status" = 1;
-    fileSystems."/mnt/c" =
-        { device = "/dev/disk/by-partuuid/6fa9bb0b-445d-4abf-9206-90c5b3fdb8dc";
-          fsType = "ntfs-3g";
-          options = [ "rw" "uid=1000" "gid=100" "umask=000" "nofail" ];
-        };
 
   swapDevices = [ ];
 
