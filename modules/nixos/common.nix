@@ -24,6 +24,7 @@
     environment.systemPackages = with pkgs; [
         neovim 
         home-manager
+        gcc
     ];
 
     fonts.packages = with pkgs; [
