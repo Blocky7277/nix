@@ -37,7 +37,6 @@
                 modules = [
                     ./hosts/trueno
                     ./modules/nixos/trueno.nix
-                    ./modules/home/trueno.nix
                     catppuccin.nixosModules.catppuccin
                     stylix.nixosModules.stylix
                 ];
@@ -49,8 +48,9 @@
                 modules = [
                     ./hosts/levin
                     ./modules/nixos/levin.nix
-                    ./modules/home/levin.nix
                     nixos-wsl.nixosModules.wsl
+                    catppuccin.nixosModules.catppuccin
+                    stylix.nixosModules.stylix
                 ];
             };
         };
@@ -61,6 +61,7 @@
                 extraSpecialArgs = { inherit inputs; };
                 modules = [
                     ./home-manager/home.nix
+                    ./modules/home/trueno.nix
                     catppuccin.homeModules.catppuccin
                     inputs.spicetify-nix.homeManagerModules.default
                     stylix.homeModules.stylix
@@ -71,8 +72,9 @@
                 pkgs = nixpkgs.legacyPackages.${system};
                 extraSpecialArgs = { inherit inputs; };
                 modules = [
-                    ./modules/home/common.nix
+                    ./modules/home/levin.nix
                     inputs.catppuccin.homeModules.catppuccin
+                    stylix.homeModules.stylix
                 ];
             };
         };

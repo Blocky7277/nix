@@ -1,7 +1,7 @@
 {
-	home = {
-		username = "blocky";
-		homeDirectory = "/home/blocky";
-		stateVersion = "24.11";
-    }
+    home.stateVersion = "24.11";
+
+    imports = [
+        ./common.nix
+        ];
 }

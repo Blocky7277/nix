@@ -21,8 +21,6 @@
 
     system.stateVersion = "24.11";
 
-    nix.settings.experimental-features = ["nix-command" "flakes"];
-
     users.users.blocky = {
         isNormalUser = true;
         description = "blocky";

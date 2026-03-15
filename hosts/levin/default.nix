@@ -10,7 +10,8 @@
         isNormalUser = true;
         description = "blocky";
         extraGroups = [ "wheel" ];
-        packages = with pkgs; [
-        ];
+        shell = pkgs.fish;
     };
+
+    system.stateVersion = "25.11";
 }

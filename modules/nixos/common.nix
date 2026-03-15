@@ -21,10 +21,13 @@
 
     nixpkgs.config.allowUnfree = true;
 
+    nix.settings.experimental-features = ["nix-command" "flakes"];
+
     environment.systemPackages = with pkgs; [
         neovim 
         home-manager
         gcc
+        git
     ];
 
     fonts.packages = with pkgs; [
@@ -40,4 +43,8 @@
             monospace = [ "JetBrainsMonoNL Nerd Font" ];
         };
     };
+
+    imports = [
+        ./stylix
+    ];
 }
