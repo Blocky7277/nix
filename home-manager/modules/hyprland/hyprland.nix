@@ -46,13 +46,11 @@
 # Or execute your favorite apps at launch like this:
 
 			exec-once = [ 
-				"awww-daemon"
-				"~/nix/assets/bg"
+                "awww-daemon"
                 "waybar &"
                 "~/nix/assets/playernoti"
+                "~/nix/assets/bg"
 			];
-# exec-once = nm-applet &
-# exec-once = waybar & hyprpaper & firefox
 
 
 #############################
@@ -92,6 +90,10 @@
 
 				layout = "dwindle";
 			};
+
+            workspace = [
+                "1, layout:master"
+            ];
 
 # https://wiki.hyprland.org/Configuring/Variables/#decoration
 			decoration = {
@@ -274,6 +276,7 @@
 			windowrule = [ 
                 "match:class rofi, opacity .8"
                 "match:class discord, opacity .9"
+                "match:class spotify, opacity .9"
                 "match:class rofi, no_blur off"
 
 			];
@@ -281,6 +284,7 @@
                 "blur on, match:namespace waybar"
                 "blur on, match:namespace rofi"
                 "blur on, match:namespace discord"
+                "blur on, match:namespace spotify"
             ];
 		};
 	};

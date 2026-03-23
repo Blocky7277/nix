@@ -1,7 +1,7 @@
 {pkgs, ...}: {
 
     home.packages = with pkgs; [
-        libreoffice-qt
+        libreoffice-still
         hunspell
         hunspellDicts.en_US
     ];
