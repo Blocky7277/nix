@@ -12,4 +12,4 @@ else
     new_profile="Performance"
 fi
 
-dunstify "Power Profile Changed" "$new_profile"
+notify-send "Power Profile Changed" "$new_profile"
