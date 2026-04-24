@@ -46,13 +46,11 @@
 # Or execute your favorite apps at launch like this:
 
 			exec-once = [ 
-				"awww-daemon"
-				"~/nix/assets/bg"
+                "awww-daemon"
                 "waybar &"
                 "~/nix/assets/playernoti"
+                "~/nix/assets/bg"
 			];
-# exec-once = nm-applet &
-# exec-once = waybar & hyprpaper & firefox
 
 
 #############################
@@ -77,8 +75,8 @@
 			general = {
 				gaps_in = 8;
 				gaps_out = 16;
-				# border_size = 0;
-				border_size = 2;
+				border_size = 0;
+				# border_size = 2;
 
 # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
 				"col.active_border" = "rgb(${config.lib.stylix.colors.base0F})";
@@ -93,9 +91,13 @@
 				layout = "dwindle";
 			};
 
+            workspace = [
+                "1, layout:master"
+            ];
+
 # https://wiki.hyprland.org/Configuring/Variables/#decoration
 			decoration = {
-				rounding = 4;
+				rounding = 6;
 				rounding_power = 2;
 
 # Change transparency of focused and unfocused windows
@@ -132,25 +134,26 @@
 					"linear,0,0,1,1"
 					"almostLinear,0.5,0.5,0.75,1.0"
 					"quick,0.15,0,0.1,1"
+                    "bounce,0.35,1.3,0.58,1.0"
 				];
 
 				animation = [ 
 					"global, 1, 10, default"
 					"border, 1, 5.39, easeOutQuint"
-					"windows, 1, 3.4, easeOutQuint"
-					"windowsIn, 1, 3.6, easeOutQuint, popin 1%"
+					"windows, 1, 3.4, bounce"
+					"windowsIn, 1, 2.2, bounce, popin 10%"
 					"windowsOut, 1, 1.49, linear, popin 87%"
 					"fadeIn, 1, 1.73, almostLinear"
 					"fadeOut, 1, 1.46, almostLinear"
 					"fade, 1, 3.03, quick"
 					"layers, 1, 3.81, easeOutQuint"
-					"layersIn, 1, 4, easeOutQuint, fade"
+					"layersIn, 1, 3.4, easeOutQuint, fade"
 					"layersOut, 1, 1.5, linear, fade"
 					"fadeLayersIn, 1, 1.79, almostLinear"
 					"fadeLayersOut, 1, 1.39, almostLinear"
-					"workspaces, 1, 1.94, easeOutQuint, slide"
-					"workspacesIn, 1, 1.21, easeOutQuint, slide"
-					"workspacesOut, 1, 1, easeOutQuint, slide"
+					"workspaces, 1, 1.94, bounce, slidevert"
+					"workspacesIn, 1, 1.35, bounce, slide"
+					"workspacesOut, 1, 1.1, easeOutQuint, slide"
 				];
 			};
 
@@ -240,7 +243,6 @@
 				"$mainMod, mouse_down, workspace, e-1"
 				"$mainMod, mouse_up, workspace, e+1"
                 ",switch:on:Lid Switch, exec, hyprlock -q"
-                ",XF86Launch1, exec, kitty btop"
                 ",XF86Launch4, exec, ~/nix/assets/changeprofiles"
 				"$mainMod SHIFT, S, exec, hyprshot -m region -o ~/pictures/screenshots"
 				];
@@ -257,15 +259,14 @@
 				",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 				",XF86MonBrightnessUp, exec, brightnessctl s 5%+"
 				",XF86MonBrightnessDown, exec, brightnessctl s 5%-"
-				",XF86KbdBrightnessUp, exec, brightnessctl --device='asus::kbd_backlight' s 1+"
-				",XF86KbdBrightnessDown, exec, brightnessctl --device='asus::kbd_backlight' s 1- "
+				"SHIFT, XF86KbdBrightnessUp, exec, brightnessctl --device='asus::kbd_backlight' s 1+"
+				"SHIFT, XF86KbdBrightnessDown, exec, brightnessctl --device='asus::kbd_backlight' s 1- "
 			];
 
 			bindl = [ 
-				", XF86AudioNext, exec, playerctl next"
-				", XF86AudioPause, exec, playerctl play-pause"
-				", XF86AudioPlay, exec, playerctl play-pause"
-				", XF86AudioPrev, exec, playerctl previous"
+                ",XF86Launch1, exec, playerctl play-pause"
+				",XF86KbdBrightnessUp, exec, playerctl next"
+				",XF86KbdBrightnessDown, exec, playerctl previous"
 			];
 ##############################
 ### WINDOWS AND WORKSPACES ###
@@ -273,14 +274,16 @@
 
 			windowrule = [ 
                 "match:class rofi, opacity .8"
-                "match:class discord, opacity .9"
+                "match:class vesktop, opacity .9"
+                "match:class spotify, opacity .9"
                 "match:class rofi, no_blur off"
 
 			];
             layerrule = [
                 "blur on, match:namespace waybar"
                 "blur on, match:namespace rofi"
-                "blur on, match:namespace discord"
+                "blur on, match:namespace vesktop"
+                "blur on, match:namespace spotify"
             ];
 		};
 	};

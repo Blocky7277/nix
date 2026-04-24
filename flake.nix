@@ -60,7 +60,6 @@
                 pkgs = nixpkgs.legacyPackages.${system};
                 extraSpecialArgs = { inherit inputs; };
                 modules = [
-                    ./home-manager/home.nix
                     ./modules/home/trueno.nix
                     catppuccin.homeModules.catppuccin
                     inputs.spicetify-nix.homeManagerModules.default

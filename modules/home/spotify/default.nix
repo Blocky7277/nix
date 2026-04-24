@@ -1,7 +1,4 @@
 {pkgs, inputs, ...}: {
-    home.packages = with pkgs; [
-
-    ];
     programs.spicetify =
         let
             spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
@@ -13,19 +10,17 @@
                 adblock
                 hidePodcasts
                 shuffle # shuffle+ (special characters are sanitized out of extension names)
-                powerBar
-                beautifulLyrics
+                spicyLyrics
                 aiBandBlocker
+                fullAppDisplayMod
             ];
             enabledCustomApps = with spicePkgs.apps; [
             ];
             enabledSnippets = with spicePkgs.snippets; [
-                spinningCdCoverArt
-                defaultProgressBar
-                dynamicSearchBar
+                hideRecentSearches
+                oneko
             ];
 
-            # theme = spicePkgs.themes.catppuccin;
-            # colorScheme = "mocha";
         };
 }
+

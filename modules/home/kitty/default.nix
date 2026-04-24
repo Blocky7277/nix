@@ -1,4 +1,4 @@
-{
+{config, ...}: {
    programs.kitty = {
 	   enable = true;
 	   extraConfig = ''
@@ -15,7 +15,7 @@
 
 	    # The basic colors
 	    foreground              #cdd6f4
-	    background              #1e1e2e
+	    background              #${config.lib.stylix.colors.base00}
 	    selection_foreground    #1e1e2e
 	    selection_background    #f5e0dc
 

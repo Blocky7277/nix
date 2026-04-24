@@ -11,7 +11,7 @@
             libvdpau-va-gl
             vulkan-loader
             vulkan-validation-layers
-            pkgs.mesa
+            mesa
         ];
         extraPackages32 = with pkgs; [
             pkgsi686Linux.libva
@@ -33,14 +33,14 @@
         nvidiaSettings = true;
     };
 
-    # hardware.nvidia.prime = {
-    #     offload = {
-    #         enable = true;
-    #         enableOffloadCmd = true;
-    #     };
-    #     amdgpuBusId = "PCI:1:0:0";
-    #     nvidiaBusId = "PCI:101:0:0";
-    # };
+    hardware.nvidia.prime = {
+        offload = {
+            enable = true;
+            enableOffloadCmd = true;
+        };
+        amdgpuBusId = "PCI:1:0:0";
+        nvidiaBusId = "PCI:101:0:0";
+    };
 
     services.supergfxd.enable = true;
 }

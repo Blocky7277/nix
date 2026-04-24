@@ -10,19 +10,20 @@
             };
 
             urgency_low = {
-                background = "#1e1e2e";
+                background = "#${config.lib.stylix.colors.base00}";
                 foreground = "#cdd6f4";
             };
             urgency_normal = {
-                background = "#1e1e2e";
+                background = "#${config.lib.stylix.colors.base00}";
                 foreground = "#cdd6f4";
             };
 
             urgency_critical = {
-                background = "#1e1e2e";
+                background = "#${config.lib.stylix.colors.base00}";
                 foreground = "#f38ba8";
                 frame_color = "#d20f39";
             };
         };
     };
 }
+

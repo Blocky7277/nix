@@ -1,6 +1,4 @@
-{ inputs, pkgs, ... }:
-
-{
+{ inputs, pkgs, ... }: {
     imports = [
         ./hardware-configuration.nix
     ];
@@ -39,7 +37,6 @@
         gtk4
         gtk3
         lshw
-        sddm-themes.sddm-cyber
         ntfs3g
         ncdu
     ];
@@ -47,7 +44,7 @@
     boot.kernel.sysctl."fs.binfmt_misc.status" = 1;
     fileSystems."/mnt/c" =
         { device = "/dev/disk/by-partuuid/6fa9bb0b-445d-4abf-9206-90c5b3fdb8dc";
-            fsType = "ntfs-3g";
+            fsType = "lowntfs-3g";
             options = [ "rw" "uid=1000" "gid=100" "umask=000" "nofail" ];
         };
 
@@ -70,7 +67,6 @@
 
     # Define time delay for hibernation
     systemd.sleep.settings.Sleep = {
-
         HibernateDelaySec = "30m";
     };
 }

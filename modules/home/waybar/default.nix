@@ -138,7 +138,7 @@
             @define-color highlight alpha(@color15, 1.0);
             @define-color alert alpha(@color11, 1.0);
             @define-color disabled #A5A5A5;
-            @define-color bg alpha(#1e1e2e, .75);
+            @define-color bg alpha(#${config.lib.stylix.colors.base00}, .75);
             @define-color accent #${config.lib.stylix.colors.base08};
             @define-color fg #${config.lib.stylix.colors.base0F};
 
@@ -154,8 +154,8 @@
               transition-property: background-color;
               transition-duration: 0.5s;
               border: none;
-              border-radius: 0;
-              /* border-radius: 0 0 .7rem .7rem; */
+              /* border-radius: 0.02rem; */
+              border-radius: 0 0 .2rem .2rem; 
             }
 
             tooltip {

@@ -44,6 +44,14 @@
                 nix-collect-garbage -d
                 sudo nix-collect-garbage -d
             end
+
+            function hmtest
+                home-manager switch --flake .
+            end
+
+            function nixtest
+                sudo nixos-rebuild switch --flake .
+            end
 		'';
 		shellAliases = {
 			vim = "nvim";
