@@ -1,5 +1,7 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
     programs.firefox = {
+        # configPath = "${config.xdg.configHome}/mozilla/firefox";
+        configPath = ".mozilla/firefox";
         enable = true;
         policies = {
             DisableTelemetry = true;
@@ -53,5 +55,8 @@
         };
     };
     stylix.targets.firefox.profileNames = [ "blocky" ];
+    stylix.targets.firefox.colors.override = {
+        base01 = config.lib.stylix.colors.base00;
+    };
     stylix.targets.firefox.colorTheme.enable = true;
 }

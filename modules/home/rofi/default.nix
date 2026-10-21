@@ -1,7 +1,7 @@
 { config, ... }:{
     programs.rofi = {
         enable = true;
-        terminal = "kitty";
+        settings.terminal = "kitty";
         theme = let
             inherit (config.lib.formats.rasi) mkLiteral;
             stylix = config.lib.stylix.colors;

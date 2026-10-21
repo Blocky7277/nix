@@ -5,6 +5,7 @@
         in
             {
             enable = true;
+            wayland = true;
 
             enabledExtensions = with spicePkgs.extensions; [
                 adblock
@@ -12,7 +13,6 @@
                 shuffle # shuffle+ (special characters are sanitized out of extension names)
                 spicyLyrics
                 aiBandBlocker
-                fullAppDisplayMod
             ];
             enabledCustomApps = with spicePkgs.apps; [
             ];

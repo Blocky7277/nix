@@ -140,7 +140,7 @@
             @define-color disabled #A5A5A5;
             @define-color bg alpha(#${config.lib.stylix.colors.base00}, .75);
             @define-color accent #${config.lib.stylix.colors.base08};
-            @define-color fg #${config.lib.stylix.colors.base0F};
+            @define-color fg #${config.lib.stylix.colors.base09};
 
             * {
               min-height: 0;

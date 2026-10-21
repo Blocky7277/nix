@@ -3,7 +3,7 @@
         enable = true;
         settings = {
             global = {
-                frame_color = "#${config.lib.stylix.colors.base0F}";
+                frame_color = "#${config.lib.stylix.colors.base09}";
                 separator_color="frame";
                 highlight = "#${config.lib.stylix.colors.base08}";
                 corner_radius = 8;

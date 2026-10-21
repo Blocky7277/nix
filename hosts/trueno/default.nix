@@ -6,11 +6,22 @@
     networking.hostName = "trueno";
 
     boot.loader = {
-        grub = {
+        # grub = {
+        #     enable = true;
+        #     efiSupport = true;
+        #     device = "nodev";
+        #     useOSProber = true;
+        # };
+        limine = {
             enable = true;
             efiSupport = true;
-            device = "nodev";
-            useOSProber = true;
+            biosDevice = "nodev";
+            extraEntries = ''
+              /Windows 11
+                  protocol: efi_chainload
+                  image_path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+            '';
+            secureBoot.enable = true;
         };
         efi = {
             canTouchEfiVariables = true;
@@ -30,9 +41,9 @@
         inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
         lm_sensors
         sbctl
-        libsForQt5.qt5.qtgraphicaleffects
+        qt5.qtgraphicaleffects
         kdePackages.qtmultimedia
-        libsForQt5.qt5.qtquickcontrols2
+        qt5.qtquickcontrols2
         kdePackages.breeze
         gtk4
         gtk3

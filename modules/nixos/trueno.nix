@@ -44,4 +44,16 @@
         percentageAction = 3;
         criticalPowerAction = "PowerOff";
     }; 
+    services.supergfxd.enable = true;
+
+    # services.cardwired = {
+    #     enable = true;
+    #     settings = {
+    #         auto_apply_gpu_state = true;
+    #         experimental_nvidia_block = true;
+    #         battery_auto_switch = true;
+    #         battery_auto_switch_mode = "integrated";
+    #         external_display_auto_switch = false;
+    #     };
+    # };
 }

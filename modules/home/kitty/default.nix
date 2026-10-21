@@ -84,6 +84,7 @@
 	    font_family JetBrainsMono Nerd Font
 	    background_opacity .9
 	    confirm_os_window_close 0
+        remember_window_size no
 	   '';
 	};
 }

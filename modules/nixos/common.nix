@@ -34,8 +34,6 @@
         fira-code
         jetbrains-mono
         nerd-fonts.jetbrains-mono
-        d2coding
-        font-awesome
     ];
 
     fonts.fontconfig = {

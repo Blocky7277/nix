@@ -32,12 +32,6 @@
                 fish_greeting
             end
 
-            function upg
-                sudo nix flake update --flake ~/nix
-                sudo nixos-rebuild switch --flake ~/nix/
-                home-manager switch --flake ~/nix/
-            end
-
             function garbage
                 sudo ls > /dev/null
                 home-manager expire-generations -d
@@ -45,8 +39,21 @@
                 sudo nix-collect-garbage -d
             end
 
+            function upg
+                sudo nix flake update --flake ~/nix
+                sudo nixos-rebuild switch --flake ~/nix/
+                garbage
+                home-manager switch --flake ~/nix/
+            end
+
             function hmtest
                 home-manager switch --flake .
+                pkill -SIGUSR1 kitty
+            end
+
+            function hmrebuild
+                home-manager switch --flake ~/nix
+                pkill -SIGUSR1 kitty
             end
 
             function nixtest
@@ -57,11 +64,11 @@
 			vim = "nvim";
             flake = "sudo nix flake update --flake ~/nix";
 			rebuild = "sudo nixos-rebuild switch --flake ~/nix/";
-			hmrebuild = "home-manager switch --flake ~/nix/";
 			ls = "eza -a1 --color=always --group-directories-first --icons";
             p = "~/nix/assets/getdrawnpwr";
             unzip = "7z +x";
             ssh = "kitty +kitten ssh";
+            fzedit = "$EDITOR $(fzf)";
 		};
     };
 }

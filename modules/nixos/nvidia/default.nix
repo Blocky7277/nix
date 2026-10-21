@@ -41,6 +41,4 @@
         amdgpuBusId = "PCI:1:0:0";
         nvidiaBusId = "PCI:101:0:0";
     };
-
-    services.supergfxd.enable = true;
 }

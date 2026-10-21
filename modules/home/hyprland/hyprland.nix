@@ -1,291 +1,592 @@
-{lib, config, ...}: {
-	wayland.windowManager.hyprland.systemd.enable = false;
-	wayland.windowManager.hyprland = {
-		enable = true;
-		package = null;
-		portalPackage = null;
-		settings = {
-# Please note not all available settings / options are set here.
-# For a full list, see the wiki
+{lib, config, ...}: 
+let
+    lua = lib.generators.mkLuaInline;
+in
+    {
+    wayland.windowManager.hyprland.systemd.enable = false;
+    home.sessionVariables.NIXOS_OZONE_WL = "1";
+    wayland.windowManager.hyprland = {
+        enable = true;
+        package = null;
+        portalPackage = null;
+        configType = "lua";
+        settings = {
+            # there is like zero documentation
+            # so don't assume this is correct
 
-# You can split this configuration into multiple files
-# Create your files separately and then link them to this file like this:
-# source = ~/.config/hypr/myColors.conf
-
-
-################
-### MONITORS ###
-################
-
-# See https://wiki.hyprland.org/Configuring/Monitors/
-			monitor = [
-                "eDP-1,preferred, 0x0, auto"
-                "HDMI-A-1, preferred, 0x-1080, 1"
+            monitor = [
+                {
+                    output = "eDP-1";
+                    mode = "preferred";
+                    position = "0x0";
+                    scale = "auto";
+                }
+                {
+                    output = "HDMI-A-1";
+                    mode = "preferred";
+                    position = "0x-1080";
+                    scale = "auto";
+                }
+                {
+                    output = "DP-9";
+                    mode = "3840x2160@60";
+                    position = "0x-1440";
+                    scale = "auto";
+                }
+                {
+                    output = "DP-10";
+                    mode = "3840x2160@60";
+                    position = "0x-1440";
+                    scale = "auto";
+                }
             ];
 
+            # Variables
+            mod = {
+                _var = "SUPER";
+            };
+            browser = {
+                _var = "firefox";
+            };
+            terminal = {
+                _var = "kitty";
+            };
+            fileManager = {
+                _var = "yazi";
+            };
+            menu = {
+                _var = "rofi -show drun || pkill rofi";
+            };
+            ssh = {
+                _var = "rofi -show ssh || pkill rofi";
+            };
 
-###################
-### MY PROGRAMS ###
-###################
+            config = {
+                general = {
+                    gaps_in = 8;
+                    gaps_out = 16;
+                    border_size = 0;
+                    # border_size = 2;
 
-# See https://wiki.hyprland.org/Configuring/Keywords/
+                    "col.active_border" = "rgb(${config.lib.stylix.colors.base09})";
+                    "col.inactive_border" = "rgba(${config.lib.stylix.colors.base08}A1)";
 
-# Set programs that you use
-			"$mainMod" = "SUPER"; # Sets "Windows" key as main modifier
-			"$browser" = "firefox";
-			"$terminal" = "kitty";
-			"$fileManager" = "yazi";
-			"$menu" = "rofi -show drun || pkill rofi";
+                    resize_on_border = false;
 
+                    allow_tearing = false;
 
-#################
-### AUTOSTART ###
-#################
+                    layout = "dwindle";
+                };
 
-# Autostart necessary processes (like notifications daemons, status bars, etc.)
-# Or execute your favorite apps at launch like this:
+                animations = {
+                    enabled = true;
+                };
+                decoration = {
+                    rounding = 6;
+                    rounding_power = 2;
 
-			exec-once = [ 
-                "awww-daemon"
-                "waybar &"
-                "~/nix/assets/playernoti"
-                "~/nix/assets/bg"
-			];
+                    # Change transparency of focused and unfocused windows
+                    active_opacity = 1.0;
+                    inactive_opacity = .9;
 
+                    # shadow = {
+                    # 	enabled = true;
+                    # 	range = 4;
+                    # 	render_power = 0;
+                    # 	color = "rgba(${config.lib.stylix.colors.base00}CD)";
+                    #                 sharp = true;
+                    # };
 
-#############################
-### ENVIRONMENT VARIABLES ###
-#############################
-
-# See https://wiki.hyprland.org/Configuring/Environment-variables/
-
-			env = [ 
-				"XCURSOR_SIZE,24"
-				"HYPRCURSOR_SIZE,24"
-                "NIXOS_OZONE_WL,1"
-			];
-
-#####################
-### LOOK AND FEEL ###
-#####################
-
-# Refer to https://wiki.hyprland.org/Configuring/Variables/
-
-# https://wiki.hyprland.org/Configuring/Variables/#general
-			general = {
-				gaps_in = 8;
-				gaps_out = 16;
-				border_size = 0;
-				# border_size = 2;
-
-# https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
-				"col.active_border" = "rgb(${config.lib.stylix.colors.base0F})";
-				"col.inactive_border" = "rgba(${config.lib.stylix.colors.base08}A1)";
-
-# Set to true enable resizing windows by clicking and dragging on borders and gaps
-				resize_on_border = false;
-
-# Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-				allow_tearing = false;
-
-				layout = "dwindle";
-			};
-
-            workspace = [
-                "1, layout:master"
-            ];
-
-# https://wiki.hyprland.org/Configuring/Variables/#decoration
-			decoration = {
-				rounding = 6;
-				rounding_power = 2;
-
-# Change transparency of focused and unfocused windows
-				active_opacity = 1.0;
-				inactive_opacity = .9;
-
-				# shadow = {
-				# 	enabled = true;
-				# 	range = 4;
-				# 	render_power = 0;
-				# 	color = "rgba(${config.lib.stylix.colors.base00}CD)";
-				#                 sharp = true;
-				# };
-
-# https://wiki.hyprland.org/Configuring/Variabledecorations/#blur
-				blur = {
-					enabled = true;
-					size = 2;
-					passes = 2;
-					vibrancy = .4;
-                    vibrancy_darkness = .2;
-				};
-			};
-
-# https://wiki.hyprland.org/Configuring/Variables/#animations
-			animations = {
-				enabled = true;
-
-# Default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-
-				bezier = [ 
-					"easeOutQuint,0.23,1,0.32,1"
-					"easeInOutCubic,0.65,0.05,0.36,1"
-					"linear,0,0,1,1"
-					"almostLinear,0.5,0.5,0.75,1.0"
-					"quick,0.15,0,0.1,1"
-                    "bounce,0.35,1.3,0.58,1.0"
-				];
-
-				animation = [ 
-					"global, 1, 10, default"
-					"border, 1, 5.39, easeOutQuint"
-					"windows, 1, 3.4, bounce"
-					"windowsIn, 1, 2.2, bounce, popin 10%"
-					"windowsOut, 1, 1.49, linear, popin 87%"
-					"fadeIn, 1, 1.73, almostLinear"
-					"fadeOut, 1, 1.46, almostLinear"
-					"fade, 1, 3.03, quick"
-					"layers, 1, 3.81, easeOutQuint"
-					"layersIn, 1, 3.4, easeOutQuint, fade"
-					"layersOut, 1, 1.5, linear, fade"
-					"fadeLayersIn, 1, 1.79, almostLinear"
-					"fadeLayersOut, 1, 1.39, almostLinear"
-					"workspaces, 1, 1.94, bounce, slidevert"
-					"workspacesIn, 1, 1.35, bounce, slide"
-					"workspacesOut, 1, 1.1, easeOutQuint, slide"
-				];
-			};
-
-# See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-			dwindle = {
-				pseudotile = true ;
-				preserve_split = true; 			};
-
-# See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-			misc = {
-				force_default_wallpaper = 0;
-				disable_hyprland_logo = true;
-			};
+                    blur = {
+                        enabled = true;
+                        size = 2;
+                        passes = 2;
+                        vibrancy = .4;
+                        vibrancy_darkness = .2;
+                    };
+                };
 
 
-#############
-### INPUT ###
-#############
+                dwindle = {
+                    preserve_split = true;
+                };
 
-# https://wiki.hyprland.org/Configuring/Variables/#input
-			input = {
-				kb_layout = "us";
+                # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
+                misc = {
+                    disable_splash_rendering = true;
+                    force_default_wallpaper = 0;
+                    disable_hyprland_logo = true;
+                };
 
-				follow_mouse = 1;
+                input = {
+                    kb_layout = "us";
 
-				sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+                    follow_mouse = 1;
 
-					touchpad = {
-						natural_scroll = false;
-					};
+                    sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
 
-                kb_options = "ctrl:nocaps";
+                    touchpad = {
+                        natural_scroll = false;
+                        scroll_factor = 0.7;
+                    };
 
-                touchpad.clickfinger_behavior = 1;
-			};
-            device = {
-                name = "logitech-usb-receiver";
-                accel_profile = "flat";
-				sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+                    kb_options = "ctrl:nocaps";
+
+                    touchpad.clickfinger_behavior = 1;
+                };
             };
 
 
-###################
-### KEYBINDINGS ###
-###################
 
-# See https://wiki.hyprland.org/Configuring/Keywords/
 
-			bind = [ 
-				"$mainMod, Q, exec, $terminal"
-				"$mainMod SHIFT, P, exec, (pgrep waybar && pkill waybar && eww open powermenu) || (eww open --toggle  powermenu && waybar &)"
-				"$mainMod, C, killactive,"
-				"$mainMod, M, exit,"
-				"$mainMod, E, exec, kitty $fileManager"
-				"$mainMod SHIFT, L, exec, hyprlock -q"
-				"$mainMod, F, exec, $browser"
-				"$mainMod, V, togglefloating,"
-				"$mainMod, R, exec, $menu"
-				"$mainMod, P, pseudo, # dwindle"
-				"$mainMod SHIFT, J, layoutmsg, togglesplit"
-				"$mainMod, h, movefocus, l"
-				"$mainMod, l, movefocus, r"
-				"$mainMod, k, movefocus, u"
-				"$mainMod, j, movefocus, d"
-				"$mainMod, 1, workspace, 1"
-				"$mainMod, 2, workspace, 2"
-				"$mainMod, 3, workspace, 3"
-				"$mainMod, 4, workspace, 4"
-				"$mainMod, 5, workspace, 5"
-				"$mainMod, 6, workspace, 6"
-				"$mainMod, 7, workspace, 7"
-				"$mainMod, 8, workspace, 8"
-				"$mainMod, 9, workspace, 9"
-				"$mainMod, 0, workspace, 10"
-				"$mainMod SHIFT, 1, movetoworkspace, 1"
-				"$mainMod SHIFT, 2, movetoworkspace, 2"
-				"$mainMod SHIFT, 3, movetoworkspace, 3"
-				"$mainMod SHIFT, 4, movetoworkspace, 4"
-				"$mainMod SHIFT, 5, movetoworkspace, 5"
-				"$mainMod SHIFT, 6, movetoworkspace, 6"
-				"$mainMod SHIFT, 7, movetoworkspace, 7"
-				"$mainMod SHIFT, 8, movetoworkspace, 8"
-				"$mainMod SHIFT, 9, movetoworkspace, 9"
-				"$mainMod SHIFT, 0, movetoworkspace, 10"
-				"$mainMod, G, togglespecialworkspace, magic"
-				"$mainMod SHIFT, G, movetoworkspace, special:magic"
-				"$mainMod, mouse_down, workspace, e-1"
-				"$mainMod, mouse_up, workspace, e+1"
-                ",switch:on:Lid Switch, exec, hyprlock -q"
-                ",XF86Launch4, exec, ~/nix/assets/changeprofiles"
-				"$mainMod SHIFT, S, exec, hyprshot -m region -o ~/pictures/screenshots"
-				];
+            #################
+            ### AUTOSTART ###
+            #################
 
-			bindm = [ 
-				"$mainMod, mouse:272, movewindow"
-				"$mainMod SHIFT, mouse:272, resizewindow"
-			];
+            # Autostart necessary processes (like notifications daemons, status bars, etc.)
+            # Or execute your favorite apps at launch like this:
+            on = {
+                _args = [
+                    "hyprland.start"
+                    (lua ''
+                        function()
+                            hl.exec_cmd("awww-daemon")
+                            hl.exec_cmd("waybar &")
+                            hl.exec_cmd("~/nix/assets/playernoti")
+                            hl.exec_cmd("~/nix/assets/bg")
+                            end
+                    '')
+                ];
+            };
 
-			bindel = [ 
-				",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-				",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-				",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-				",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-				",XF86MonBrightnessUp, exec, brightnessctl s 5%+"
-				",XF86MonBrightnessDown, exec, brightnessctl s 5%-"
-				"SHIFT, XF86KbdBrightnessUp, exec, brightnessctl --device='asus::kbd_backlight' s 1+"
-				"SHIFT, XF86KbdBrightnessDown, exec, brightnessctl --device='asus::kbd_backlight' s 1- "
-			];
+            #############################
+            ### ENVIRONMENT VARIABLES ###
+            #############################
 
-			bindl = [ 
-                ",XF86Launch1, exec, playerctl play-pause"
-				",XF86KbdBrightnessUp, exec, playerctl next"
-				",XF86KbdBrightnessDown, exec, playerctl previous"
-			];
-##############################
-### WINDOWS AND WORKSPACES ###
-##############################
-
-			windowrule = [ 
-                "match:class rofi, opacity .8"
-                "match:class vesktop, opacity .9"
-                "match:class spotify, opacity .9"
-                "match:class rofi, no_blur off"
-
-			];
-            layerrule = [
-                "blur on, match:namespace waybar"
-                "blur on, match:namespace rofi"
-                "blur on, match:namespace vesktop"
-                "blur on, match:namespace spotify"
+            env = [ 
+                {
+                    _args = [
+                        "XCURSOR_SIZE"
+                        "24"
+                    ];
+                }
+                {
+                    _args = [
+                        "HYPRCURSOR_SIZE"
+                        "24"
+                    ];
+                }
+                {
+                    _args = [
+                        "NIXOS_OZONE_WL"
+                        "1"
+                    ];
+                }
+                {
+                    _args = [
+                        "ELECTRON_OZONE_PLATFORM_HINT"
+                        "wayland"
+                    ];
+                }
             ];
-		};
-	};
-    home.sessionVariables.NIXOS_OZONE_WL = "1";
+
+
+            # Animations
+            curve = [
+                {
+                    _args = [
+                        "easeOutQuint"
+                        {
+                            type = "bezier";
+                            points = lib.generators.mkLuaInline "{ {0.23, 1}, {0.32, 1} }";
+                        }
+                    ];
+                }
+                {
+                    _args = [
+                        "easeInOutCubic"
+                        {
+                            type = "bezier";
+                            points = lib.generators.mkLuaInline "{ {0.65, 0.05}, {0.36, 1} }";
+                        }
+                    ];
+                }
+                {
+                    _args = [
+                        "linear"
+                        {
+                            type = "bezier";
+                            points = lib.generators.mkLuaInline "{ {0, 0}, {1, 1} }";
+                        }
+                    ];
+                }
+                {
+                    _args = [
+                        "almostLinear"
+                        {
+                            type = "bezier";
+                            points = lib.generators.mkLuaInline "{ {0.5, 0.5}, {0.75, 1.0} }";
+                        }
+                    ];
+                }
+                {
+                    _args = [
+                        "quick"
+                        {
+                            type = "bezier";
+                            points = lib.generators.mkLuaInline "{ {0.15, 0}, {0.1, 1} }";
+                        }
+                    ];
+                }
+                {
+                    _args = [
+                        "bounce"
+                        {
+                            type = "bezier";
+                            points = lib.generators.mkLuaInline "{ {0.35, 1.3}, {0.58, 1.0} }";
+                        }
+                    ];
+                }
+            ];
+
+            animation = [
+                { leaf = "global"; enabled = true; speed = 10; bezier = "default"; }
+                { leaf = "border"; enabled = true; speed = 5.39; bezier = "easeOutQuint"; }
+                { leaf = "windows"; enabled = true; speed = 3.4; bezier = "bounce"; }
+                { leaf = "windowsIn"; enabled = true; speed = 2.2; bezier = "bounce"; style = "popin 10%"; }
+                { leaf = "windowsOut"; enabled = true; speed = 1.49; bezier = "linear"; style = "popin 87%"; }
+                { leaf = "fadeIn"; enabled = true; speed = 1.73; bezier = "almostLinear"; }
+                { leaf = "fadeOut"; enabled = true; speed = 1.46; bezier = "almostLinear"; }
+                { leaf = "fade"; enabled = true; speed = 3.03; bezier = "quick"; }
+                { leaf = "layers"; enabled = true; speed = 3.81; bezier = "easeOutQuint"; }
+                { leaf = "layersIn"; enabled = true; speed = 3.4; bezier = "easeOutQuint"; style = "fade"; }
+                { leaf = "layersOut"; enabled = true; speed = 1.5; bezier = "linear"; style = "fade"; }
+                { leaf = "fadeLayersIn"; enabled = true; speed = 1.79; bezier = "almostLinear"; }
+                { leaf = "fadeLayersOut"; enabled = true; speed = 1.39; bezier = "almostLinear"; }
+                { leaf = "workspaces"; enabled = true; speed = 1.94; bezier = "bounce"; style = "slidevert"; }
+                { leaf = "workspacesIn"; enabled = true; speed = 1.35; bezier = "bounce"; style = "slide"; }
+                { leaf = "workspacesOut"; enabled = true; speed = 1.1; bezier = "easeOutQuint"; style = "slide"; }
+            ];
+
+
+
+            #############
+            ### INPUT ###
+            #############
+
+            # https://wiki.hyprland.org/Configuring/Variables/#input
+
+
+            ###################
+            ### KEYBINDINGS ###
+            ###################
+
+            # See https://wiki.hyprland.org/Configuring/Keywords/
+
+            bind = [ 
+                # Applications
+                {
+                    _args = [
+                        (lua "mod..\" + Q\"")
+                        (lua "hl.dsp.exec_cmd(terminal)")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + C\"")
+                        (lua "hl.dsp.window.close()")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + E\"")
+                        (lua "hl.dsp.exec_cmd(terminal..\" \"..fileManager)")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + F\"")
+                        (lua "hl.dsp.exec_cmd(browser)")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + R\"")
+                        (lua "hl.dsp.exec_cmd(menu)")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + S\"")
+                        (lua "hl.dsp.exec_cmd(ssh)")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + SHIFT + L\"")
+                        (lua "hl.dsp.exec_cmd(\"hyprlock -q\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + SHIFT + S\"")
+                        (lua "hl.dsp.exec_cmd(\"hyprshot -m region -o ~/pictures/screenshots\")")
+                    ];
+                }
+
+                {
+                    _args = [
+                        (lua "mod..\" + M\"")
+                        (lua "hl.dsp.exec_cmd(\"command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'\")")
+                    ];
+                }
+
+
+                # Workspace Navigation 1
+                {
+                    _args = [
+                        (lua "mod..\" + H\"")
+                        (lua "hl.dsp.focus({direction = \"left\"})")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + L\"")
+                        (lua "hl.dsp.focus({direction = \"right\"})")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + K\"")
+                        (lua "hl.dsp.focus({direction = \"up\"})")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + J\"")
+                        (lua "hl.dsp.focus({direction = \"down\"})")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + SHIFT + J\"")
+                        (lua "hl.dsp.layout(\"togglesplit\")")
+                    ];
+                }
+
+                # Magic Workspace
+                {
+                    _args = [
+                        (lua "mod..\" + G\"")
+                        (lua "hl.dsp.workspace.toggle_special(\"magic\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + SHIFT + G\"")
+                        (lua "hl.dsp.window.move({ workspace = \"special:magic\" })")
+                    ];
+                }
+
+                # Lid Switch
+                {
+                    _args = [
+                        (lua "\"switch:on:Lid Switch\"")
+                        (lua "hl.dsp.exec_cmd(\"hyprlock -q\")")
+                    ];
+                }
+
+
+                # Move/Resize Windows
+                {
+                    _args = [
+                        (lua "mod..\" + mouse:272\"")
+                        (lua "hl.dsp.window.drag()")
+                        (lua "{mouse = true}")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + SHIFT + mouse:272\"")
+                        (lua "hl.dsp.window.resize()")
+                        (lua "{mouse = true}")
+                    ];
+                }
+
+                # Media / Misc
+                {
+                    _args = [
+                        (lua "\"XF86Launch4\"")
+                        (lua "hl.dsp.exec_cmd(\"~/nix/assets/changeprofiles\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"XF86AudioRaiseVolume\"")
+                        (lua "hl.dsp.exec_cmd(\"wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"XF86AudioLowerVolume\"")
+                        (lua "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"XF86AudioMute\"")
+                        (lua "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"XF86AudioMicMute\"")
+                        (lua "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"XF86MonBrightnessUp\"")
+                        (lua "hl.dsp.exec_cmd(\"brightnessctl s 5%+\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"XF86MonBrightnessDown\"")
+                        (lua "hl.dsp.exec_cmd(\"brightnessctl s 5%-\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"SHIFT + XF86KbdBrightnessUp\"")
+                        (lua "hl.dsp.exec_cmd(\"brightnessctl --device='asus::kbd_backlight' s 1+\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"SHIFT + XF86KbdBrightnessDown\"")
+                        (lua "hl.dsp.exec_cmd(\"brightnessctl --device='asus::kbd_backlight' s 1-\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"XF86KbdBrightnessUp\"")
+                        (lua "hl.dsp.exec_cmd(\"playerctl next\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"XF86KbdBrightnessDown\"")
+                        (lua "hl.dsp.exec_cmd(\"playerctl previous\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"XF86AudioPlay\"")
+                        (lua "hl.dsp.exec_cmd(\"playerctl play-pause\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "\"XF86Launch1\"")
+                        (lua "hl.dsp.exec_cmd(\"playerctl play-pause\")")
+                    ];
+                }
+                {
+                    _args = [
+                        (lua "mod..\" + SHIFT + P\"")
+                        (lua "hl.dsp.exec_cmd(\"pgrep waybar && pkill waybar && eww open powermenu\")")
+                    ];
+                }
+
+                # Workspace Navigation 2
+            ] ++ (lib.concatMap (i:
+                    let key = toString (lib.mod i 10);
+                    in [
+                        {
+                            _args = [
+                                (lua "mod..\" + ${key}\"")
+                                (lua "hl.dsp.focus({workspace = ${toString i}})")
+                            ];
+                        }
+                        {
+                            _args = [
+                                (lua "mod..\" + SHIFT + ${key}\"")
+                                (lua "hl.dsp.window.move({workspace = ${toString i}})")
+                            ];
+                        }
+                    ]
+                ) (lib.range 1 10));
+
+            # Custom mouse profile
+            device = {
+                name = "logitech-usb-receiver";
+                accel_profile = "flat";
+                sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+            };
+
+            # Window and layer rules
+            window_rule = [
+                {
+                    match = {
+                        class = "rofi";
+                    };
+
+                    opacity = .8;
+                    no_blur = false;
+                }
+                {
+                    match = {
+                        class = "vesktop";
+                    };
+
+                    opacity = .9;
+                }
+                {
+                    match = {
+                        class = "spotify";
+                    };
+
+                    opacity = .9;
+                }
+            ];
+
+            layer_rule = [
+                {
+                    match = {
+                        namespace = "waybar";
+                    };
+
+                    blur = true;
+                }
+                {
+                    match = {
+                        namespace = "rofi";
+                    };
+
+                    blur = true;
+                }
+                {
+                    match = {
+                        namespace = "vesktop";
+                    };
+
+                    blur = true;
+                }
+                {
+                    match = {
+                        namespace = "spotify";
+                    };
+
+                    blur = true;
+                }
+            ];
+            workspace_rule = [
+                {
+                    workspace = "1";
+                    layout = "master";
+                }
+            ];
+        };
+    };
 }

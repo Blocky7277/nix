@@ -12,5 +12,10 @@
         '';
         network.startWhenNeeded = true;
     };
-    programs.rmpc.enable = true;
+    programs.rmpc = {
+        enable = true;
+        config = ''
+             scrolloff: 999,
+        '';
+    };
 }
